@@ -11,7 +11,8 @@ const config = {
     "@storybook/addon-vitest",
     "@storybook/addon-a11y",
     "@storybook/addon-docs",
-    "@storybook/addon-onboarding"
+    "@storybook/addon-onboarding",
+    "@storybook/addon-viewport"
   ],
   "framework": "@storybook/react-vite"
 };
