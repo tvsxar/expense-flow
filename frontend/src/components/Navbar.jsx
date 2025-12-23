@@ -1,13 +1,7 @@
 import addIcon from "../assets/add-outline.svg";
-import { useState } from "react";
 import DropdownButton from './DropdownButton';
 
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  }
+function Navbar({ isDropdownOpen, toggleDropdown, handleOpenModal }) {
 
   return (
     <nav className="flex items-center justify-between bg-white select-none border-b-2 border-gray-200 py-4 px-4 sm:px-12 lg:px-25">
@@ -19,12 +13,12 @@ function Navbar() {
       </div>
 
       <div className="flex items-center gap-4">
-        <DropdownButton isOpen={isOpen} toggleDropdown={toggleDropdown} />
+        <DropdownButton isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} />
 
-        <button
+        <button onClick={handleOpenModal}
           className="flex items-center gap-2 cursor-pointer text-gray-900 bg-[#E9D6EC] rounded-xl p-2
          hover:bg-[#E0C2E6] hover:drop-shadow-[0_0_4px_rgba(233,214,236,0.7)]
-         active:scale-105"
+         active:scale-102 font-semibold"
         >
           <img src={addIcon} alt="add" className="w-6 h-6" />
           Add expense

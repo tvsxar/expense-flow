@@ -1,6 +1,6 @@
 import arrowIcon from "../assets/chevron-down-outline.svg";
 
-function DropdownButton({ isOpen, toggleDropdown }) {
+function DropdownButton({ isDropdownOpen, toggleDropdown }) {
   return (
     <div className="relative">
       <button
@@ -13,12 +13,12 @@ function DropdownButton({ isOpen, toggleDropdown }) {
           src={arrowIcon}
           alt="arrow"
           className={`w-4 h-4 transition-transform ${
-            isOpen ? "rotate-180" : "rotate-0"
+            isDropdownOpen ? "rotate-180" : "rotate-0"
           }`}
         />
       </button>
 
-      {isOpen && (
+      {isDropdownOpen && (
         <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
           <button
             className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 hover:rounded-t-lg cursor-pointer`}
