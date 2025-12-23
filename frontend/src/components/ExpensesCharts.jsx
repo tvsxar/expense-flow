@@ -44,9 +44,9 @@ function ExpensesCharts() {
   };
 
   return (
-    <div className="flex justify-center items-center flex-wrap gap-2">
-      <div className="bg-white border border-gray-200 rounded-xl shadow-lg max-w-3xl mx-auto p-6 mt-6 flex-1">
-        <div className="flex gap-2 mb-4">
+    <div className="flex flex-col lg:flex-row justify-center items-center gap-4 lg:gap-6 lg:items-start sm:px-12 lg:px-25">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-lg w-full max-w-3xl p-4">
+        <div className="flex gap-2 mb-4 flex-wrap">
           {["line", "bar"].map((type) => (
             <button
               key={type}
@@ -59,15 +59,17 @@ function ExpensesCharts() {
             </button>
           ))}
         </div>
-        {selectedChart === "line" ? (
-          <LineChart data={data} />
-        ) : (
-          <BarChart data={data} />
-        )}
+        <div className="w-full">
+          {selectedChart === "line" ? (
+            <LineChart data={data} />
+          ) : (
+            <BarChart data={data} />
+          )}
+        </div>
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-xl shadow-lg max-w-xs mx-auto p-6 mt-6">
-        <div className="flex gap-2 mb-12">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-lg w-full max-w-md lg:max-w-3xs lg:2/5 p-6">
+        <div className="flex gap-2 mb-12 flex-wrap">
           {["doughnut", "pie"].map((type) => (
             <button
               key={type}

@@ -8,7 +8,7 @@ function SummaryCards() {
   ];
 
   return (
-    <div className="flex gap-6 items-center justify-center flex-wrap">
+    <div className="flex gap-2 items-center justify-center flex-wrap mb-8 md:gap-4 lg:gap-6">
       {summaryData.map((data, index) => (
         <SummaryCard
           key={index}

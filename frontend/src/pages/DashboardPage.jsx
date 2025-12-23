@@ -44,7 +44,7 @@ function DashboardPage() {
         handleOpenModal={handleOpenModal}
       />
 
-      <div className="flex-1 py-12">
+      <div className="flex-1 pt-4 pb-12 px-4 sm:px-12 lg:px-25">
         <SummaryCards />
         <ExpensesCharts />
         <ExpensesList />

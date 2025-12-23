@@ -21,7 +21,7 @@ function Navbar({ isDropdownOpen, toggleDropdown, handleOpenModal }) {
          active:scale-102 font-semibold"
         >
           <img src={addIcon} alt="add" className="w-6 h-6" />
-          Add expense
+          <p className="hidden md:flex">Add expense</p>
         </button>
       </div>
     </nav>

@@ -8,8 +8,8 @@ function ExpensesList() {
   ];
 
   return (
-  <div className="bg-white border border-gray-200 rounded-xl shadow-lg max-w-3xl mx-auto p-6 mt-8">
-    <h2 className="font-bold">Recent Expenses</h2>
+  <div className="bg-white border border-gray-200 rounded-xl shadow-lg w-full max-w-3xl mx-auto p-4 sm:p-6 mt-8">
+    <h2 className="font-bold text-lg sm:text-xl">Recent Expenses</h2>
     <ul className="mt-4 space-y-4">
         {expenses.map((expense, idx) => (
             <ExpenseItem key={expense.id + idx} expense={expense} />

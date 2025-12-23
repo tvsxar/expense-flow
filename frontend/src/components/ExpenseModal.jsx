@@ -1,9 +1,9 @@
 function ExpenseModal({ expenseData, handleCloseModal, handleInputChange }) {
   return (
     <div onClick={handleCloseModal}
-    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 sm:p-6">
       <div onClick={(e) => e.stopPropagation()}
-      className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative">
+      className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-4 sm:p-6 lg:p-8 relative">
         <button
           onClick={handleCloseModal}
           className="absolute text-xl cursor-pointer top-4 right-4 text-gray-400 
@@ -16,7 +16,7 @@ function ExpenseModal({ expenseData, handleCloseModal, handleInputChange }) {
           Add New Expense
         </h2>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3 sm:gap-4">
           <input
             onChange={handleInputChange}
             onKeyDown={(e) => {
@@ -28,7 +28,7 @@ function ExpenseModal({ expenseData, handleCloseModal, handleInputChange }) {
             placeholder="Amount"
             min="0.1"
             step="0.1"
-            className="bg-gray-100 text-gray-900 placeholder-gray-500 px-4 py-2 
+            className="bg-gray-100 text-gray-900 placeholder-gray-500 px-3 py-2 sm:px-4 sm:py-2
             rounded-xl border border-gray-200 focus:border-[#E9D6EC] 
             focus:drop-shadow-[0_0_6px_rgba(233,214,236,0.7)] transition-all"
           />
@@ -38,7 +38,7 @@ function ExpenseModal({ expenseData, handleCloseModal, handleInputChange }) {
             name="category"
             value={expenseData.category}
             placeholder="Category"
-            className="bg-gray-100 text-gray-900 placeholder-gray-500 px-4 py-2 
+            className="bg-gray-100 text-gray-900 placeholder-gray-500 px-3 py-2 sm:px-4 sm:py-2 
             rounded-xl border border-gray-200 focus:border-[#E9D6EC] 
             focus:drop-shadow-[0_0_6px_rgba(233,214,236,0.7)] transition-all"
           />
@@ -47,7 +47,7 @@ function ExpenseModal({ expenseData, handleCloseModal, handleInputChange }) {
             type="date"
             name="date"
             value={expenseData.date}
-            className="bg-gray-100 text-gray-900 px-4 py-2 rounded-xl border
+            className="bg-gray-100 text-gray-900 px-3 py-2 sm:px-4 sm:py-2 rounded-xl border
              border-gray-200 focus:border-[#E9D6EC] focus:drop-shadow-[0_0_6px_rgba(233,214,236,0.7)] 
              transition-all"
           />
