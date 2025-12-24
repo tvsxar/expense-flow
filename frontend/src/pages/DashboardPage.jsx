@@ -10,6 +10,7 @@ function DashboardPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [expenseData, setExpenseData] = useState({
+    icon: "",
     category: "",
     amount: "",
     date: "",
@@ -47,7 +48,7 @@ function DashboardPage() {
       <div className="flex-1 pt-4 pb-12 px-4 sm:px-12 lg:px-25">
         <SummaryCards />
         <ExpensesCharts />
-        <ExpensesList />
+        <ExpensesList handleOpenModal={handleOpenModal} />
       </div>
 
       {isModalOpen && (
