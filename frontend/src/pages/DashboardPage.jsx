@@ -10,6 +10,7 @@ function DashboardPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [expenseData, setExpenseData] = useState({
+    icon: "",
     category: "",
     amount: "",
     date: "",
@@ -32,7 +33,7 @@ function DashboardPage() {
 
     setExpenseData((prev) => ({
       ...prev,
-      [name]: name === "amount" ? value.replace(/[^0-9.]/g, 0) :value,
+      [name]: name === "amount" ? value.replace(/[^0-9.]/g, 0) : value,
     }));
   };
 
@@ -47,12 +48,13 @@ function DashboardPage() {
       <div className="flex-1 pt-4 pb-12 px-4 sm:px-12 lg:px-25">
         <SummaryCards />
         <ExpensesCharts />
-        <ExpensesList />
+        <ExpensesList handleOpenModal={handleOpenModal} />
       </div>
 
       {isModalOpen && (
         <ExpenseModal
           expenseData={expenseData}
+          setExpenseData={setExpenseData}
           handleCloseModal={handleCloseModal}
           handleInputChange={handleInputChange}
         />

@@ -1,9 +1,37 @@
-function ExpenseModal({ expenseData, handleCloseModal, handleInputChange }) {
+import { useState } from "react";
+import EmojiPicker from "emoji-picker-react";
+
+function ExpenseModal({
+  expenseData,
+  handleCloseModal,
+  handleInputChange,
+  setExpenseData,
+}) {
+  const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
+  const [selectedEmoji, setSelectedEmoji] = useState("");
+
+  const toggleEmojiPicker = () => setIsEmojiPickerOpen(!isEmojiPickerOpen);
+
+  const handleEmojiClick = (emojiData) => {
+    setSelectedEmoji(emojiData.emoji);
+
+    setExpenseData((prev) => ({
+      ...prev,
+      icon: emojiData.emoji,
+    }));
+
+    toggleEmojiPicker();
+  };
+
   return (
-    <div onClick={handleCloseModal}
-    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 sm:p-6">
-      <div onClick={(e) => e.stopPropagation()}
-      className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-4 sm:p-6 lg:p-8 relative">
+    <div
+      onClick={handleCloseModal}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 sm:p-6"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-4 sm:p-6 lg:p-8 relative"
+      >
         <button
           onClick={handleCloseModal}
           className="absolute text-xl cursor-pointer top-4 right-4 text-gray-400 
@@ -16,7 +44,25 @@ function ExpenseModal({ expenseData, handleCloseModal, handleInputChange }) {
           Add New Expense
         </h2>
 
-        <div className="flex flex-col gap-3 sm:gap-4">
+        <form className="flex flex-col gap-3 sm:gap-4">
+          <div className="flex flex-col gap-2 items-center justify-center">
+            <span className="text-gray-500">Select icon:</span>
+            <button
+              type="button"
+              onClick={toggleEmojiPicker}
+              className="w-12 h-12 rounded-full border border-gray-200 bg-gray-100 flex items-center 
+              justify-center text-2xl hover:scale-105 transition-transform cursor-pointer"
+            >
+              {selectedEmoji || "😀"}
+            </button>
+
+            {isEmojiPickerOpen && (
+              <div className="h-12">
+                <EmojiPicker onEmojiClick={handleEmojiClick} />
+              </div>
+            )}
+          </div>
+
           <input
             onChange={handleInputChange}
             onKeyDown={(e) => {
@@ -59,7 +105,7 @@ function ExpenseModal({ expenseData, handleCloseModal, handleInputChange }) {
           >
             Add Expense
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
