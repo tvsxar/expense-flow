@@ -32,7 +32,7 @@ function DashboardPage() {
 
     setExpenseData((prev) => ({
       ...prev,
-      [name]: name === "amount" ? value.replace(/[^0-9.]/g, 0) :value,
+      [name]: name === "amount" ? value.replace(/[^0-9.]/g, 0) : value,
     }));
   };
 
@@ -53,6 +53,7 @@ function DashboardPage() {
       {isModalOpen && (
         <ExpenseModal
           expenseData={expenseData}
+          setExpenseData={setExpenseData}
           handleCloseModal={handleCloseModal}
           handleInputChange={handleInputChange}
         />
