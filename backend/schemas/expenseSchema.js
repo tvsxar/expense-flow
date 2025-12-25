@@ -12,6 +12,7 @@ const expenseType = new GraphQLObjectType({
   name: "Expense",
   fields: () => ({
     _id: { type: new GraphQLNonNull(GraphQLString) },
+    icon: { type: new GraphQLNonNull(GraphQLString) },
     category: { type: new GraphQLNonNull(GraphQLString) },
     amount: { type: new GraphQLNonNull(GraphQLFloat) },
     date: { type: new GraphQLNonNull(GraphQLString) },
@@ -38,6 +39,7 @@ const Mutations = new GraphQLObjectType({
     addExpense: {
       type: expenseType,
       args: {
+        icon: { type: new GraphQLNonNull(GraphQLString) },
         category: { type: new GraphQLNonNull(GraphQLString) },
         amount: { type: new GraphQLNonNull(GraphQLFloat) },
         date: { type: new GraphQLNonNull(GraphQLString) },
@@ -49,6 +51,7 @@ const Mutations = new GraphQLObjectType({
       type: expenseType,
       args: {
         id: { type: new GraphQLNonNull(GraphQLString) },
+        icon: { type: GraphQLString },
         category: { type: GraphQLString },
         amount: { type: GraphQLFloat },
         date: { type: GraphQLString },

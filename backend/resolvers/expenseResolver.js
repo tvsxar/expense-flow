@@ -17,7 +17,7 @@ const expenseResolvers = {
   },
 
   Mutation: {
-    addExpense: async (_, { category, amount, date }) => {
+    addExpense: async (_, { icon, category, amount, date }) => {
       try {
         if (amount <= 0) {
           throw new Error("Amount must be greater than 0");
@@ -28,6 +28,7 @@ const expenseResolvers = {
         }
 
         const newExpense = await Expense.create({
+          icon,
           category,
           amount,
           date: new Date(date),
@@ -40,12 +41,15 @@ const expenseResolvers = {
       }
     },
 
-    editExpense: async (_, { id, category, amount, date }) => {
+    editExpense: async (_, { id, icon, category, amount, date }) => {
       try {
         const selectedExpense = await Expense.findById(id);
 
         if (!selectedExpense) throw new Error("Selected expense not found!");
 
+        if (icon && icon.trim() && selectedExpense.icon !== icon) {
+          selectedExpense.icon = icon;
+        }
         selectedExpense.category = category.trim()
           ? category
           : selectedExpense.category;
