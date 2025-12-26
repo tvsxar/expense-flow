@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import { GET_EXPENSES } from "../apollo/expenses";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SummaryCards from "../components/SummaryCards";
@@ -9,6 +11,13 @@ import ExpenseModal from "../components/ExpenseModal";
 function DashboardPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const expenses = useQuery(GET_EXPENSES, {
+    variables: {
+      from: "2025-12-01",
+      to: "2025-12-31",
+    },
+  });
   const [expenseData, setExpenseData] = useState({
     icon: "",
     category: "",
@@ -16,16 +25,23 @@ function DashboardPage() {
     date: "",
   });
 
+  useEffect(() => {
+    console.log(expenses.data.getExpensesByPeriod)
+  }, []);
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (edit = false) => {
     setIsModalOpen(true);
+
+    setIsEditing(edit);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setIsEditing(false);
   };
 
   const handleInputChange = (e) => {
