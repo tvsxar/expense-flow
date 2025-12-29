@@ -21,7 +21,7 @@ function ExpenseItem({ expense, handleOpenModal }) {
 
       <div className="flex items-center gap-2">
         <button
-          onClick={() => handleOpenModal(true)}
+          onClick={() => handleOpenModal(true, expense)}
           className="bg-gray-200 rounded-md p-1 cursor-pointer"
         >
           <img className="w-6 h-6" src={editIcon} alt="edit" />

@@ -1,31 +1,9 @@
-import { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 
-function ExpenseModal({
-  expenseData,
-  handleCloseModal,
-  handleInputChange,
-  setExpenseData,
-}) {
-  const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
-  const [selectedEmoji, setSelectedEmoji] = useState("");
-
-  const toggleEmojiPicker = () => setIsEmojiPickerOpen(!isEmojiPickerOpen);
-
-  const handleEmojiClick = (emojiData) => {
-    setSelectedEmoji(emojiData.emoji);
-
-    setExpenseData((prev) => ({
-      ...prev,
-      icon: emojiData.emoji,
-    }));
-
-    toggleEmojiPicker();
-  };
-
+function ExpenseModal({ modal }) {
   return (
     <div
-      onClick={handleCloseModal}
+      onClick={modal.handleCloseModal}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 sm:p-6"
     >
       <div
@@ -33,7 +11,7 @@ function ExpenseModal({
         className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-4 sm:p-6 lg:p-8 relative"
       >
         <button
-          onClick={handleCloseModal}
+          onClick={modal.handleCloseModal}
           className="absolute text-xl cursor-pointer top-4 right-4 text-gray-400 
           hover:text-[#E9D6EC] hover:drop-shadow-[0_0_6px_rgba(233,214,236,0.7)] transition-all"
         >
@@ -49,28 +27,28 @@ function ExpenseModal({
             <span className="text-gray-500">Select icon:</span>
             <button
               type="button"
-              onClick={toggleEmojiPicker}
+              onClick={modal.toggleEmojiPicker}
               className="w-12 h-12 rounded-full border border-gray-200 bg-gray-100 flex items-center 
               justify-center text-2xl hover:scale-105 transition-transform cursor-pointer"
             >
-              {selectedEmoji || "😀"}
+              {modal.expenseData.icon || "😀"}
             </button>
 
-            {isEmojiPickerOpen && (
+            {modal.isEmojiPickerOpen && (
               <div className="h-12">
-                <EmojiPicker onEmojiClick={handleEmojiClick} />
+                <EmojiPicker onEmojiClick={modal.handleEmojiClick} />
               </div>
             )}
           </div>
 
           <input
-            onChange={handleInputChange}
+            onChange={modal.handleInputChange}
             onKeyDown={(e) => {
               if (e.key === "-" || e.key === "e") e.preventDefault();
             }}
             type="number"
             name="amount"
-            value={expenseData.amount}
+            value={modal.expenseData.amount}
             placeholder="Amount"
             min="0.1"
             step="0.1"
@@ -79,20 +57,20 @@ function ExpenseModal({
             focus:drop-shadow-[0_0_6px_rgba(233,214,236,0.7)] transition-all"
           />
           <input
-            onChange={handleInputChange}
+            onChange={modal.handleInputChange}
             type="text"
             name="category"
-            value={expenseData.category}
+            value={modal.expenseData.category}
             placeholder="Category"
             className="bg-gray-100 text-gray-900 placeholder-gray-500 px-3 py-2 sm:px-4 sm:py-2 
             rounded-xl border border-gray-200 focus:border-[#E9D6EC] 
             focus:drop-shadow-[0_0_6px_rgba(233,214,236,0.7)] transition-all"
           />
           <input
-            onChange={handleInputChange}
+            onChange={modal.handleInputChange}
             type="date"
             name="date"
-            value={expenseData.date}
+            value={modal.expenseData.date}
             className="bg-gray-100 text-gray-900 px-3 py-2 sm:px-4 sm:py-2 rounded-xl border
              border-gray-200 focus:border-[#E9D6EC] focus:drop-shadow-[0_0_6px_rgba(233,214,236,0.7)] 
              transition-all"
