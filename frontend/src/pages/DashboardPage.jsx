@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
-import { GET_EXPENSES } from "../apollo/expenses";
+// hooks
+import useExpenses from "../hooks/useExpenses";
+import useModal from "../hooks/useModal";
+import usePeriodDropdown from "../hooks/usePeriodDropdown";
+
+// components
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SummaryCards from "../components/SummaryCards";
@@ -9,72 +12,56 @@ import ExpensesList from "../components/ExpensesList";
 import ExpenseModal from "../components/ExpenseModal";
 
 function DashboardPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const expenses = useQuery(GET_EXPENSES, {
-    variables: {
-      from: "2025-12-01",
-      to: "2025-12-31",
-    },
-  });
-  const [expenseData, setExpenseData] = useState({
-    icon: "",
-    category: "",
-    amount: "",
-    date: "",
-  });
+  const modal = useModal();
+  const { period, handleSelect, selected } = usePeriodDropdown();
 
-  useEffect(() => {
-    console.log(expenses.data.getExpensesByPeriod)
-  }, []);
+  const {
+    expensesQuery,
+    addExpense,
+    editExpense,
+    deleteExpense,
+    loading,
+    error,
+  } = useExpenses(period);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  if (loading) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-3">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-indigo-500" />
+        <p className="text-sm text-gray-500">Loading expenses...</p>
+      </div>
+    );
+  }
 
-  const handleOpenModal = (edit = false) => {
-    setIsModalOpen(true);
-
-    setIsEditing(edit);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setIsEditing(false);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    setExpenseData((prev) => ({
-      ...prev,
-      [name]: name === "amount" ? value.replace(/[^0-9.]/g, 0) : value,
-    }));
-  };
+  if (error) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-3">
+        <p className="text-red-500 text-lg font-medium">
+          Something went wrong!
+        </p>
+        <p className="text-sm text-gray-500">{error.message}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar
-        isDropdownOpen={isDropdownOpen}
-        toggleDropdown={toggleDropdown}
-        handleOpenModal={handleOpenModal}
+        handleOpenModal={modal.handleOpenModal}
+        selected={selected}
+        handleSelect={handleSelect}
       />
 
       <div className="flex-1 pt-4 pb-12 px-4 sm:px-12 lg:px-25">
         <SummaryCards />
         <ExpensesCharts />
-        <ExpensesList handleOpenModal={handleOpenModal} />
+        <ExpensesList
+          handleOpenModal={modal.handleOpenModal}
+          expenses={expensesQuery.data.expenses}
+        />
       </div>
 
-      {isModalOpen && (
-        <ExpenseModal
-          expenseData={expenseData}
-          setExpenseData={setExpenseData}
-          handleCloseModal={handleCloseModal}
-          handleInputChange={handleInputChange}
-        />
-      )}
+      {modal.isModalOpen && <ExpenseModal modal={modal} />}
 
       <Footer />
     </div>
