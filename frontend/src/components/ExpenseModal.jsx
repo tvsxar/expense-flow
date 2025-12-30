@@ -1,6 +1,6 @@
 import EmojiPicker from "emoji-picker-react";
 
-function ExpenseModal({ modal }) {
+function ExpenseModal({ modal, handleSubmit }) {
   return (
     <div
       onClick={modal.handleCloseModal}
@@ -22,7 +22,9 @@ function ExpenseModal({ modal }) {
           Add New Expense
         </h2>
 
-        <form className="flex flex-col gap-3 sm:gap-4">
+        <form 
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-3 sm:gap-4">
           <div className="flex flex-col gap-2 items-center justify-center">
             <span className="text-gray-500">Select icon:</span>
             <button

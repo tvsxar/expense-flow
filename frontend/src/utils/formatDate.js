@@ -1,5 +1,8 @@
 export default function formatDate(dateString) {
-  const date = new Date(dateString);
+  if (!dateString) return "";
+
+  const timestamp = typeof dateString === "string" ? Number(dateString) : dateString;
+  const date = new Date(timestamp);
 
   const day = date.getDate();
   const month = date.toLocaleString("en-US", { month: "long" });

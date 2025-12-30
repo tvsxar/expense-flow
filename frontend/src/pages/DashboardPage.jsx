@@ -2,6 +2,7 @@
 import useExpenses from "../hooks/useExpenses";
 import useModal from "../hooks/useModal";
 import usePeriodDropdown from "../hooks/usePeriodDropdown";
+import useExpensesChartData from "../hooks/useExpensesChartData";
 
 // components
 import Navbar from "../components/Navbar";
@@ -14,7 +15,6 @@ import ExpenseModal from "../components/ExpenseModal";
 function DashboardPage() {
   const modal = useModal();
   const { period, handleSelect, selected } = usePeriodDropdown();
-
   const {
     expensesQuery,
     addExpense,
@@ -23,6 +23,50 @@ function DashboardPage() {
     loading,
     error,
   } = useExpenses(period);
+  const chartData = useExpensesChartData(expensesQuery.data?.expenses, period);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (modal.isEditing) {
+        await editExpense({
+          variables: {
+            id: modal.editingId,
+            icon: modal.expenseData.icon,
+            category: modal.expenseData.category,
+            amount: parseFloat(modal.expenseData.amount),
+            date: modal.expenseData.date,
+          },
+        });
+      } else {
+        await addExpense({
+          variables: {
+            icon: modal.expenseData.icon || "😀",
+            category: modal.expenseData.category,
+            amount: parseFloat(modal.expenseData.amount),
+            date: modal.expenseData.date,
+          },
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    modal.handleCloseModal();
+  };
+
+  const handleDelete = async (expenseId) => {
+    try {
+      await deleteExpense({
+        variables: {
+          id: expenseId,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   if (loading) {
     return (
@@ -54,14 +98,17 @@ function DashboardPage() {
 
       <div className="flex-1 pt-4 pb-12 px-4 sm:px-12 lg:px-25">
         <SummaryCards />
-        <ExpensesCharts />
+        <ExpensesCharts chartData={chartData} />
         <ExpensesList
           handleOpenModal={modal.handleOpenModal}
           expenses={expensesQuery.data.expenses}
+          handleDelete={handleDelete}
         />
       </div>
 
-      {modal.isModalOpen && <ExpenseModal modal={modal} />}
+      {modal.isModalOpen && (
+        <ExpenseModal modal={modal} handleSubmit={handleSubmit} />
+      )}
 
       <Footer />
     </div>
