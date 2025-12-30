@@ -3,6 +3,7 @@ import { useState } from "react";
 function useModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [editingId, setEditingId] = useState("");
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
   const [expenseData, setExpenseData] = useState({
     icon: "",
@@ -21,14 +22,20 @@ function useModal() {
         icon: expense.icon,
         category: expense.category,
         amount: expense.amount,
-        date: expense.date,
+        date: new Date(Number(expense.date)).toISOString().split("T")[0],
       });
+
+      setEditingId(expense._id);
+    } else {
+      setExpenseData({ icon: "", category: "", amount: "", date: "" });
+      setEditingId("");
     }
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setIsEditing(false);
+    setEditingId("");
     setExpenseData({
       icon: "",
       category: "",
@@ -67,7 +74,8 @@ function useModal() {
     handleInputChange,
     isEmojiPickerOpen,
     handleEmojiClick,
-    toggleEmojiPicker
+    toggleEmojiPicker,
+    editingId,
   };
 }
 

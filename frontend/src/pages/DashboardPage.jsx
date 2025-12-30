@@ -24,6 +24,37 @@ function DashboardPage() {
     error,
   } = useExpenses(period);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (modal.isEditing) {
+        await editExpense({
+          variables: {
+            id: modal.editingId,
+            icon: modal.expenseData.icon,
+            category: modal.expenseData.category,
+            amount: parseFloat(modal.expenseData.amount),
+            date: modal.expenseData.date,
+          },
+        });
+      } else {
+        await addExpense({
+          variables: {
+            icon: modal.expenseData.icon || "😀",
+            category: modal.expenseData.category,
+            amount: parseFloat(modal.expenseData.amount),
+            date: modal.expenseData.date,
+          },
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    modal.handleCloseModal();
+  };
+
   if (loading) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-3">
@@ -61,7 +92,9 @@ function DashboardPage() {
         />
       </div>
 
-      {modal.isModalOpen && <ExpenseModal modal={modal} />}
+      {modal.isModalOpen && (
+        <ExpenseModal modal={modal} handleSubmit={handleSubmit} />
+      )}
 
       <Footer />
     </div>
