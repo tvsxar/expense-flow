@@ -4,15 +4,15 @@ import DonutChart from "./charts/DonutChart";
 import PieChart from "./charts/PieChart";
 import { useState } from "react";
 
-function ExpensesCharts() {
+function ExpensesCharts({ chartData = [] }) {
   const [selectedChart, setSelectedChart] = useState("line");
   const [selectedRound, setSelectedRound] = useState("doughnut");
-  const data = {
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  const totalChartData = {
+    labels: chartData.totalChart.map(day => day.label),
     datasets: [
       {
         label: "Expenses",
-        data: [50, 30, 40, 20, 60, 5, 45],
+        data: chartData.totalChart.map(day => day.total),
         borderColor: "rgba(233,214,236,1)",
         backgroundColor: `rgba(233,214,236,${
           selectedChart === "line" ? 0.2 : 0.5
@@ -25,11 +25,11 @@ function ExpensesCharts() {
     ],
   };
 
-  const donutData = {
-    labels: ["Food", "Transport", "Entertainment", "Bills", "Other"],
+  const categoryChartData = {
+    labels: chartData.categoryChart.map(category => category.category),
     datasets: [
       {
-        data: [100, 50, 75, 40, 25],
+        data: chartData.categoryChart.map(category => category.total),
         backgroundColor: [
           "rgba(233,214,236,0.7)",
           "rgba(202,200,240,0.7)",
@@ -61,14 +61,14 @@ function ExpensesCharts() {
         </div>
         <div className="w-full">
           {selectedChart === "line" ? (
-            <LineChart data={data} />
+            <LineChart data={totalChartData} />
           ) : (
-            <BarChart data={data} />
+            <BarChart data={totalChartData} />
           )}
         </div>
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-xl shadow-lg w-full max-w-md lg:max-w-3xs lg:2/5 p-6">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-lg w-full max-w-md lg:max-w-3xs lg:w-2/5 p-6">
         <div className="flex gap-2 mb-12 flex-wrap">
           {["doughnut", "pie"].map((type) => (
             <button
@@ -83,9 +83,9 @@ function ExpensesCharts() {
           ))}
         </div>
         {selectedRound === "doughnut" ? (
-          <DonutChart data={donutData} />
+          <DonutChart data={categoryChartData} />
         ) : (
-          <PieChart data={donutData} />
+          <PieChart data={categoryChartData} />
         )}
       </div>
     </div>

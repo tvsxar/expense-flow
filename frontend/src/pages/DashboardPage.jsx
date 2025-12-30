@@ -2,6 +2,7 @@
 import useExpenses from "../hooks/useExpenses";
 import useModal from "../hooks/useModal";
 import usePeriodDropdown from "../hooks/usePeriodDropdown";
+import useExpensesChartData from "../hooks/useExpensesChartData";
 
 // components
 import Navbar from "../components/Navbar";
@@ -14,7 +15,6 @@ import ExpenseModal from "../components/ExpenseModal";
 function DashboardPage() {
   const modal = useModal();
   const { period, handleSelect, selected } = usePeriodDropdown();
-
   const {
     expensesQuery,
     addExpense,
@@ -23,6 +23,7 @@ function DashboardPage() {
     loading,
     error,
   } = useExpenses(period);
+  const chartData = useExpensesChartData(expensesQuery.data?.expenses, period);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,13 +60,13 @@ function DashboardPage() {
     try {
       await deleteExpense({
         variables: {
-          id: expenseId
-        }
-      })
+          id: expenseId,
+        },
+      });
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -97,7 +98,7 @@ function DashboardPage() {
 
       <div className="flex-1 pt-4 pb-12 px-4 sm:px-12 lg:px-25">
         <SummaryCards />
-        <ExpensesCharts />
+        <ExpensesCharts chartData={chartData} />
         <ExpensesList
           handleOpenModal={modal.handleOpenModal}
           expenses={expensesQuery.data.expenses}
