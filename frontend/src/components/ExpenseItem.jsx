@@ -3,6 +3,7 @@ import editIcon from "../assets/edit.svg";
 import deleteIcon from "../assets/trash-outline.svg";
 
 function ExpenseItem({ expense, handleOpenModal }) {
+  console.log(expense.date)
   return (
     <li className="flex justify-between items-center sm:items-center sm:gap-0">
       <div className="flex items-center gap-3">
