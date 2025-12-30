@@ -2,8 +2,7 @@ import formatDate from "../utils/formatDate";
 import editIcon from "../assets/edit.svg";
 import deleteIcon from "../assets/trash-outline.svg";
 
-function ExpenseItem({ expense, handleOpenModal }) {
-  console.log(expense.date)
+function ExpenseItem({ expense, handleOpenModal, handleDelete }) {
   return (
     <li className="flex justify-between items-center sm:items-center sm:gap-0">
       <div className="flex items-center gap-3">
@@ -27,12 +26,12 @@ function ExpenseItem({ expense, handleOpenModal }) {
         >
           <img className="w-6 h-6" src={editIcon} alt="edit" />
         </button>
-        <button className="bg-red-200 rounded-md p-1 cursor-pointer">
-          <img
-            className="w-6 h-6"
-            src={deleteIcon}
-            alt="delete"
-          />
+        <button
+          type="button"
+          onClick={() => handleDelete(expense._id)}
+          className="bg-red-200 rounded-md p-1 cursor-pointer"
+        >
+          <img className="w-6 h-6" src={deleteIcon} alt="delete" />
         </button>
       </div>
     </li>

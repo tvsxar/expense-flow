@@ -1,6 +1,6 @@
 import ExpenseItem from "./ExpenseItem";
 
-function ExpensesList({ handleOpenModal, expenses }) {
+function ExpensesList({ handleOpenModal, expenses, handleDelete }) {
   return (
     <div
       className="bg-white border border-gray-200 rounded-xl shadow-lg 
@@ -14,6 +14,7 @@ function ExpensesList({ handleOpenModal, expenses }) {
             <ExpenseItem
               key={expense._id ?? idx}
               expense={expense}
+              handleDelete={handleDelete}
               handleOpenModal={handleOpenModal}
             />
           ))}

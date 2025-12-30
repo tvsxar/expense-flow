@@ -55,6 +55,18 @@ function DashboardPage() {
     modal.handleCloseModal();
   };
 
+  const handleDelete = async (expenseId) => {
+    try {
+      await deleteExpense({
+        variables: {
+          id: expenseId
+        }
+      })
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   if (loading) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-3">
@@ -89,6 +101,7 @@ function DashboardPage() {
         <ExpensesList
           handleOpenModal={modal.handleOpenModal}
           expenses={expensesQuery.data.expenses}
+          handleDelete={handleDelete}
         />
       </div>
 
