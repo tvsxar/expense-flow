@@ -18,7 +18,7 @@ function Navbar({ handleOpenModal, handleSelect, selected }) {
         />
 
         <button
-          onClick={handleOpenModal}
+          onClick={() => handleOpenModal(false, null)}
           className="flex items-center gap-2 cursor-pointer text-gray-900 bg-[#E9D6EC] rounded-xl p-2
          hover:bg-[#E0C2E6] hover:drop-shadow-[0_0_4px_rgba(233,214,236,0.7)]
          active:scale-102 font-semibold"
