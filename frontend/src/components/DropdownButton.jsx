@@ -9,7 +9,6 @@ function DropdownButton({ handleSelect, selected }) {
   };
 
   const options = [
-    { value: "24h", label: "Last 24 hours" },
     { value: "7d", label: "Last 7 days" },
     { value: "30d", label: "Last 30 days" },
     { value: "3m", label: "Last 3 months" },
