@@ -5,26 +5,73 @@ function useExpensesChartData(expenses = [], period) {
   const startDate = new Date(period.from);
   const endDate = new Date(period.to);
 
+  const MS_IN_DAY = 24 * 60 * 60 * 1000;
+  const totalDays = Math.round((endDate - startDate) / MS_IN_DAY) + 1;
+
+  let step = 1;
+
+  if (totalDays > 60) step = 10;
+  else if (totalDays > 14) step = 5;
+
   // total chart (line & bar)
   for (
     let day = new Date(startDate);
     day <= endDate;
-    day.setDate(day.getDate() + 1)
+    day.setDate(day.getDate() + step)
   ) {
-    const dateStr = day.toISOString().split("T")[0];
+    if (totalDays <= 7) {
+      const dateStr = day.toISOString().split("T")[0];
 
-    const total = expenses
-      .filter((exp) => {
-        const expDate = new Date(Number(exp.date)).toISOString().split("T")[0];
-        return expDate === dateStr;
-      })
-      .reduce((sum, exp) => sum + exp.amount, 0);
+      const total = expenses
+        .filter((exp) => {
+          const expDate = new Date(Number(exp.date))
+            .toISOString()
+            .split("T")[0];
+          return expDate === dateStr;
+        })
+        .reduce((sum, exp) => sum + exp.amount, 0);
 
-    totalChart.push({
-      date: dateStr,
-      total: total,
-      label: day.toLocaleDateString("en-US", { weekday: "short" }),
-    });
+      totalChart.push({
+        date: dateStr,
+        total: total,
+        label: day.toLocaleDateString("en-US", { weekday: "short" }),
+      });
+    } else {
+      const startBlock = new Date(day);
+      const endBlock = new Date(day);
+      endBlock.setDate(endBlock.getDate() + step - 1);
+      if (endBlock > endDate) endBlock.setTime(endDate.getTime());
+
+      const total = expenses
+        .filter((exp) => {
+          const expDate = new Date(Number(exp.date));
+          return expDate >= startBlock && expDate <= endBlock;
+        })
+        .reduce((sum, exp) => sum + exp.amount, 0);
+
+      const sameMonth =
+        startBlock.getMonth() === endBlock.getMonth() &&
+        startBlock.getFullYear() === endBlock.getFullYear();
+
+      const label = sameMonth
+        ? `${startBlock.getDate()}-${endBlock.getDate()} ${endBlock.toLocaleDateString(
+            "en-US",
+            {
+              month: "short",
+            }
+          )}`
+        : `${startBlock.getDate()} ${startBlock.toLocaleDateString("en-US", {
+            month: "short",
+          })} - ${endBlock.getDate()} ${endBlock.toLocaleDateString("en-US", {
+            month: "short",
+          })}`;
+
+      totalChart.push({
+        date: startBlock.toISOString().split("T")[0],
+        total: total,
+        label: label,
+      });
+    }
   }
 
   // category chart (doughnut & pie)
