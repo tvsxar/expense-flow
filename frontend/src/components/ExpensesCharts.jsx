@@ -59,7 +59,7 @@ function ExpensesCharts({ chartData = [] }) {
             </button>
           ))}
         </div>
-        <div className="w-full">
+        <div className="w-full max-h-96 h-52 sm:h-64 md:h-80">
           {selectedChart === "line" ? (
             <LineChart data={totalChartData} />
           ) : (
@@ -68,7 +68,7 @@ function ExpensesCharts({ chartData = [] }) {
         </div>
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-xl shadow-lg w-full max-w-md lg:max-w-3xs lg:w-2/5 p-6">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-lg w-full max-w-sm lg:max-w-3xs p-6">
         <div className="flex gap-2 mb-12 flex-wrap">
           {["doughnut", "pie"].map((type) => (
             <button
