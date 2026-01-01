@@ -1,10 +1,30 @@
 import SummaryCard from "./SummaryCard";
+import { formatAmount } from "../utils/formatAmount";
 
-function SummaryCards() {
+function SummaryCards({ expenses, period }) {
+  const totalAmount = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+
+  const dayStart = new Date(period.from);
+  const dayEnd = new Date(period.to);
+
+  const daysAmount = (dayEnd - dayStart) / (1000 * 60 * 60 * 24) + 1;
+
   const summaryData = [
-    { title: "Total Expenses", value: "$350", icon: "💸" },
-    { title: "Average per Day", value: "$50", icon: "📊" },
-    { title: "Last Expense", value: "$30", icon: "🍔" },
+    {
+      title: "Total Expenses",
+      value: `$${formatAmount(totalAmount)}`,
+      icon: "💸",
+    },
+    {
+      title: "Average per Day",
+      value: `$${formatAmount((totalAmount / daysAmount).toFixed(1))}`,
+      icon: "📊",
+    },
+    {
+      title: "Last Expense",
+      value: `$${expenses[0].amount}`,
+      icon: `${expenses[0].icon}`,
+    },
   ];
 
   return (

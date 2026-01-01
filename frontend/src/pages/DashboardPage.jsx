@@ -97,7 +97,7 @@ function DashboardPage() {
       />
 
       <div className="flex-1 pt-4 pb-12 px-4 sm:px-12 lg:px-25">
-        <SummaryCards />
+        <SummaryCards period={period} expenses={expensesQuery.data.expenses} />
         <ExpensesCharts chartData={chartData} />
         <ExpensesList
           handleOpenModal={modal.handleOpenModal}

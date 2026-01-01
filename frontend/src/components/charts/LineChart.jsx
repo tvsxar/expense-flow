@@ -4,6 +4,7 @@ import { Line } from "react-chartjs-2";
 function LineChart({ data }) {
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: { position: "top", labels: { color: "#000" } },
       tooltip: { enabled: true, backgroundColor: "rgba(55,65,81,0.9)" },
