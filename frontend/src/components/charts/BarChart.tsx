@@ -1,8 +1,13 @@
-import "../../utils/setupCharts";
+import "../../utils/setupCharts.js";
 import { Bar } from "react-chartjs-2";
+import type { ChartData, ChartOptions } from "chart.js";
 
-function BarChart({ data }) {
-  const options = {
+interface BarChartProps {
+  data: ChartData<"bar", number[], string>;
+}
+
+function BarChart({ data } : BarChartProps) {
+  const options: ChartOptions<"bar"> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {

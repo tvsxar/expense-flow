@@ -1,8 +1,13 @@
-import "../../utils/setupCharts";
+import "../../utils/setupCharts.js";
 import { Line } from "react-chartjs-2";
+import type { ChartData, ChartOptions } from "chart.js";
 
-function LineChart({ data }) {
-  const options = {
+interface LineChartProps {
+  data: ChartData<"line", number[], string>;
+}
+
+function LineChart({ data }: LineChartProps) {
+  const options: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {

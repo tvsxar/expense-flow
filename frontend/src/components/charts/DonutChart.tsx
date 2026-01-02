@@ -1,8 +1,13 @@
-import "../../utils/setupCharts";
+import "../../utils/setupCharts.js";
 import { Doughnut } from "react-chartjs-2";
+import type { ChartData, ChartOptions } from "chart.js";
 
-function DonutChart({ data }) {
-  const options = {
+interface DonutChartProps {
+  data: ChartData<"doughnut", number[], string>;
+}
+
+function DonutChart({ data }: DonutChartProps) {
+  const options: ChartOptions<"doughnut"> = {
     responsive: true,
     plugins: {
       legend: { position: "bottom", labels: { color: "#000" } },

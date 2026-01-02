@@ -1,18 +1,34 @@
-import LineChart from "./charts/LineChart";
-import BarChart from "./charts/BarChart";
-import DonutChart from "./charts/DonutChart";
-import PieChart from "./charts/PieChart";
+import LineChart from "./charts/LineChart.js";
+import BarChart from "./charts/BarChart.js";
+import DonutChart from "./charts/DonutChart.js";
+import PieChart from "./charts/PieChart.js";
 import { useState } from "react";
 
-function ExpensesCharts({ chartData = [] }) {
+export interface TotalChartItem {
+  date: string;
+  total: number;
+  label: string;
+}
+
+export interface CategoryChartItem {
+  category: string;
+  total: number;
+}
+
+export interface ExpensesChartData {
+  totalChart: TotalChartItem[];
+  categoryChart: CategoryChartItem[];
+}
+
+function ExpensesCharts({ categoryChart, totalChart }: ExpensesChartData) {
   const [selectedChart, setSelectedChart] = useState("line");
   const [selectedRound, setSelectedRound] = useState("doughnut");
   const totalChartData = {
-    labels: chartData.totalChart.map(day => day.label),
+    labels: totalChart.map(day => day.label),
     datasets: [
       {
         label: "Expenses",
-        data: chartData.totalChart.map(day => day.total),
+        data: totalChart.map(day => day.total),
         borderColor: "rgba(233,214,236,1)",
         backgroundColor: `rgba(233,214,236,${
           selectedChart === "line" ? 0.2 : 0.5
@@ -26,10 +42,10 @@ function ExpensesCharts({ chartData = [] }) {
   };
 
   const categoryChartData = {
-    labels: chartData.categoryChart.map(category => category.category),
+    labels: categoryChart.map(category => category.category),
     datasets: [
       {
-        data: chartData.categoryChart.map(category => category.total),
+        data: categoryChart.map(category => category.total),
         backgroundColor: [
           "rgba(233,214,236,0.7)",
           "rgba(202,200,240,0.7)",
