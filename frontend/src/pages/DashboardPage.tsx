@@ -1,16 +1,16 @@
 // hooks
 import useExpenses from "../hooks/useExpenses.jsx";
-import useModal from "../hooks/useModal.jsx";
-import usePeriodDropdown from "../hooks/usePeriodDropdown.jsx";
+import useModal from "../hooks/useModal.js";
+import usePeriodDropdown from "../hooks/usePeriodDropdown.js";
 import useExpensesChartData from "../hooks/useExpensesChartData.js";
 
 // components
-import Navbar from "../components/Navbar.jsx";
-import Footer from "../components/Footer.jsx";
+import Navbar from "../components/Navbar.js";
+import Footer from "../components/Footer.js";
 import SummaryCards from "../components/SummaryCards.jsx";
 import ExpensesCharts from "../components/ExpensesCharts.js";
 import ExpensesList from "../components/ExpensesList.jsx";
-import ExpenseModal from "../components/ExpenseModal.jsx";
+import ExpenseModal from "../components/ExpenseModal.js";
 
 function DashboardPage() {
   const modal = useModal();
