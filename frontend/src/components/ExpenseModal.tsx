@@ -1,33 +1,5 @@
-import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
-
-interface Expense {
-  _id: string,
-  icon: string,
-  category: string,
-  date: string,
-  amount: number
-}
-
-interface ExpenseFormData {
-  icon: string;
-  category: string;
-  amount: string;
-  date: string;
-}
-
-interface Modal {
-    handleCloseModal: () => void,
-    toggleEmojiPicker: () => void,
-    expenseData: ExpenseFormData,
-    handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    isEmojiPickerOpen: boolean,
-    handleEmojiClick: (emojiData: EmojiClickData) => void,
-    isModalOpen: boolean,
-    isEditing: boolean,
-    handleOpenModal: (edit: boolean, expense: Expense | null) => void,
-    setExpenseData: React.Dispatch<React.SetStateAction<ExpenseFormData>>,
-    editingId: string,
-  }
+import EmojiPicker from "emoji-picker-react";
+import type { Modal } from '../types/types.js'
 
 interface ExpenseModalProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
@@ -56,9 +28,9 @@ function ExpenseModal({ modal, handleSubmit }: ExpenseModalProps) {
           Add New Expense
         </h2>
 
-        <form 
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-3 sm:gap-4">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-3 sm:gap-4">
           <div className="flex flex-col gap-2 items-center justify-center">
             <span className="text-gray-500">Select icon:</span>
             <button

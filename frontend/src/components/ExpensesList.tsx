@@ -1,12 +1,5 @@
 import ExpenseItem from "./ExpenseItem.js";
-
-interface Expense {
-  _id: string,
-  icon: string,
-  category: string,
-  date: string,
-  amount: number
-}
+import type { Expense } from '../types/types.js'
 
 interface ExpensesListProps {
   handleOpenModal: (edit: boolean, expense: Expense | null) => void,

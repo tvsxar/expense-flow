@@ -1,17 +1,10 @@
 import SummaryCard from "./SummaryCard.js";
 import { formatAmount } from "../utils/formatAmount.js";
-
-interface Expense {
-  _id: string,
-  icon: string,
-  category: string,
-  date: string,
-  amount: number
-}
+import type { Expense, Period } from '../types/types.js'
 
 interface SummaryCardsProps {
   expenses: Expense[],
-  period: {to: string, from: string}
+  period: Period
 }
 
 function SummaryCards({ expenses, period }: SummaryCardsProps) {

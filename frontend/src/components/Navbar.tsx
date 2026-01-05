@@ -1,13 +1,6 @@
 import addIcon from "../assets/add-outline.svg";
 import DropdownButton from "./DropdownButton.js";
-
-interface Expense {
-  _id: string,
-  icon: string,
-  category: string,
-  date: string,
-  amount: number
-}
+import type { Expense } from '../types/types.js'
 
 interface NavbarProps {
   handleOpenModal: (edit: boolean, expense: Expense | null) => void,

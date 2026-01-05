@@ -3,19 +3,9 @@ import BarChart from "./charts/BarChart.js";
 import DonutChart from "./charts/DonutChart.js";
 import PieChart from "./charts/PieChart.js";
 import { useState } from "react";
+import type { TotalChartItem, CategoryChartItem } from '../types/types.js'
 
-export interface TotalChartItem {
-  date: string;
-  total: number;
-  label: string;
-}
-
-export interface CategoryChartItem {
-  category: string;
-  total: number;
-}
-
-export interface ExpensesChartData {
+interface ExpensesChartData {
   totalChart: TotalChartItem[];
   categoryChart: CategoryChartItem[];
 }
@@ -30,9 +20,8 @@ function ExpensesCharts({ categoryChart, totalChart }: ExpensesChartData) {
         label: "Expenses",
         data: totalChart.map(day => day.total),
         borderColor: "rgba(233,214,236,1)",
-        backgroundColor: `rgba(233,214,236,${
-          selectedChart === "line" ? 0.2 : 0.5
-        })`,
+        backgroundColor: `rgba(233,214,236,${selectedChart === "line" ? 0.2 : 0.5
+          })`,
         tension: 0.3,
         fill: true,
         pointRadius: 5,
@@ -67,9 +56,8 @@ function ExpensesCharts({ categoryChart, totalChart }: ExpensesChartData) {
             <button
               key={type}
               onClick={() => setSelectedChart(type)}
-              className={`px-4 py-1 rounded-xl text-black cursor-pointer ${
-                selectedChart === type ? "bg-pink-100" : "bg-gray-200"
-              }`}
+              className={`px-4 py-1 rounded-xl text-black cursor-pointer ${selectedChart === type ? "bg-pink-100" : "bg-gray-200"
+                }`}
             >
               {type === "line" ? "Line" : "Bar"}
             </button>
@@ -90,9 +78,8 @@ function ExpensesCharts({ categoryChart, totalChart }: ExpensesChartData) {
             <button
               key={type}
               onClick={() => setSelectedRound(type)}
-              className={`px-4 py-1 rounded-xl text-black cursor-pointer ${
-                selectedRound === type ? "bg-pink-100" : "bg-gray-200"
-              }`}
+              className={`px-4 py-1 rounded-xl text-black cursor-pointer ${selectedRound === type ? "bg-pink-100" : "bg-gray-200"
+                }`}
             >
               {type === "doughnut" ? "Doughnut" : "Pie"}
             </button>

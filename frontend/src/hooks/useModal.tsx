@@ -1,20 +1,6 @@
 import { useState } from "react";
 import { EmojiClickData } from "emoji-picker-react";
-
-interface Expense {
-  _id: string,
-  icon: string,
-  category: string,
-  date: string,
-  amount: number
-}
-
-interface ExpenseFormData {
-  icon: string;
-  category: string;
-  amount: string;
-  date: string;
-}
+import type { Expense, ExpenseFormData } from '../types/types.js'
 
 function useModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);

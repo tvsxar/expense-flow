@@ -5,8 +5,9 @@ import {
   EDIT_EXPENSE,
   DELETE_EXPENSE,
 } from "../apollo/expenses.js";
+import type { Period } from '../types/types.js'
 
-function useExpenses(period: {to: string, from: string}) {
+function useExpenses(period: Period) {
   const expensesQuery = useQuery(GET_EXPENSES, {
     variables: period,
   });

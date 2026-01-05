@@ -1,26 +1,4 @@
-interface Expense {
-  _id: string,
-  icon: string,
-  category: string,
-  date: string,
-  amount: number
-}
-
-interface Period {
-  to: string,
-  from: string
-}
-
-interface TotalChartItem {
-  date: string;
-  total: number;
-  label: string;
-}
-
-interface CategoryChartItem {
-  category: string;
-  total: number;
-}
+import type { Expense, TotalChartItem, CategoryChartItem, Period } from '../types/types.js'
 
 function useExpensesChartData(expenses: Expense[] = [], period: Period) {
   console.log(expenses)

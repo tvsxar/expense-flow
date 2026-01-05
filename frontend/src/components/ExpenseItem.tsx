@@ -1,14 +1,7 @@
 import formatDate from "../utils/formatDate.js";
 import editIcon from "../assets/edit.svg";
 import deleteIcon from "../assets/trash-outline.svg";
-
-interface Expense {
-  _id: string,
-  icon: string,
-  category: string,
-  date: string,
-  amount: number
-}
+import type { Expense } from '../types/types.js'
 
 interface ExpenseItemProps {
   handleOpenModal: (edit: boolean, expense: Expense | null) => void,
