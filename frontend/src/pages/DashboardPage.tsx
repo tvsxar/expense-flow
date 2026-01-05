@@ -1,5 +1,5 @@
 // hooks
-import useExpenses from "../hooks/useExpenses.jsx";
+import useExpenses from "../hooks/useExpenses.js";
 import useModal from "../hooks/useModal.js";
 import usePeriodDropdown from "../hooks/usePeriodDropdown.js";
 import useExpensesChartData from "../hooks/useExpensesChartData.js";
@@ -7,7 +7,7 @@ import useExpensesChartData from "../hooks/useExpensesChartData.js";
 // components
 import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
-import SummaryCards from "../components/SummaryCards.jsx";
+import SummaryCards from "../components/SummaryCards.js";
 import ExpensesCharts from "../components/ExpensesCharts.js";
 import ExpensesList from "../components/ExpensesList.js";
 import ExpenseModal from "../components/ExpenseModal.js";
