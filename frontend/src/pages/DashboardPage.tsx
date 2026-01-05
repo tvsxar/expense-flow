@@ -9,7 +9,7 @@ import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
 import SummaryCards from "../components/SummaryCards.jsx";
 import ExpensesCharts from "../components/ExpensesCharts.js";
-import ExpensesList from "../components/ExpensesList.jsx";
+import ExpensesList from "../components/ExpensesList.js";
 import ExpenseModal from "../components/ExpenseModal.js";
 
 function DashboardPage() {

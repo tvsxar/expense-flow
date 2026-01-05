@@ -1,8 +1,22 @@
-import formatDate from "../utils/formatDate";
+import formatDate from "../utils/formatDate.js";
 import editIcon from "../assets/edit.svg";
 import deleteIcon from "../assets/trash-outline.svg";
 
-function ExpenseItem({ expense, handleOpenModal, handleDelete }) {
+interface Expense {
+  _id: string,
+  icon: string,
+  category: string,
+  date: string,
+  amount: number
+}
+
+interface ExpenseItemProps {
+  handleOpenModal: (edit: boolean, expense: Expense | null) => void,
+  expense: Expense,
+  handleDelete: (id: string) => void
+}
+
+function ExpenseItem({ expense, handleOpenModal, handleDelete }: ExpenseItemProps) {
   return (
     <li className="flex justify-between items-center sm:items-center sm:gap-0">
       <div className="flex items-center gap-3">

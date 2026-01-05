@@ -1,6 +1,20 @@
-import ExpenseItem from "./ExpenseItem";
+import ExpenseItem from "./ExpenseItem.js";
 
-function ExpensesList({ handleOpenModal, expenses, handleDelete }) {
+interface Expense {
+  _id: string,
+  icon: string,
+  category: string,
+  date: string,
+  amount: number
+}
+
+interface ExpensesListProps {
+  handleOpenModal: (edit: boolean, expense: Expense | null) => void,
+  expenses: Expense[],
+  handleDelete: (id: string) => void
+}
+
+function ExpensesList({ handleOpenModal, expenses, handleDelete }: ExpensesListProps) {
   return (
     <div
       className="bg-white border border-gray-200 rounded-xl shadow-lg 
