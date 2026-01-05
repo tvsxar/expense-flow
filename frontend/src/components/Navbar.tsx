@@ -1,7 +1,14 @@
 import addIcon from "../assets/add-outline.svg";
-import DropdownButton from "./DropdownButton";
+import DropdownButton from "./DropdownButton.js";
+import type { Expense } from '../types/types.js'
 
-function Navbar({ handleOpenModal, handleSelect, selected }) {
+interface NavbarProps {
+  handleOpenModal: (edit: boolean, expense: Expense | null) => void,
+  handleSelect: (value: string, label: string) => void,
+  selected: string
+}
+
+function Navbar({ handleOpenModal, handleSelect, selected }: NavbarProps) {
   return (
     <nav className="flex items-center justify-between bg-white select-none border-b-2 border-gray-200 py-4 px-4 sm:px-12 lg:px-25">
       <div className="font-bold text-lg sm:text-2xl">

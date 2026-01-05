@@ -1,8 +1,13 @@
-import "../../utils/setupCharts";
+import "../../utils/setupCharts.js";
 import { Pie } from "react-chartjs-2";
+import type { ChartData, ChartOptions } from "chart.js";
 
-function PieChart({ data }) {
-  const options = {
+interface PieChartProps {
+  data: ChartData<"pie", number[], string>;
+}
+
+function PieChart({ data }: PieChartProps) {
+  const options: ChartOptions<"pie"> = {
     responsive: true,
     plugins: {
       legend: { position: "bottom", labels: { color: "#000" } },

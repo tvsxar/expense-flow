@@ -7,7 +7,7 @@ function usePeriodDropdown() {
     to: new Date().toISOString().split("T")[0],
   });
 
-  const selectPeriod = (option) => {
+  const selectPeriod = (option: string) => {
     const now = new Date();
     const daysAgo =
       option === "7d" ? 6 : option === "30d" ? 29 : option === "3m" ? 89 : 6;
@@ -21,7 +21,7 @@ function usePeriodDropdown() {
     });
   };
 
-  const handleSelect = (value, label) => {
+  const handleSelect = (value: string, label: string) => {
     setSelected(label);
     selectPeriod(value);
   };

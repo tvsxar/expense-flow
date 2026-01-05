@@ -1,18 +1,20 @@
 import { useState } from "react";
+import { EmojiClickData } from "emoji-picker-react";
+import type { Expense, ExpenseFormData } from '../types/types.js'
 
 function useModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState("");
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
-  const [expenseData, setExpenseData] = useState({
+  const [expenseData, setExpenseData] = useState<ExpenseFormData>({
     icon: "",
     category: "",
     amount: "",
     date: "",
   });
 
-  const handleOpenModal = (edit = false, expense) => {
+  const handleOpenModal = (edit = false, expense: Expense | null) => {
     setIsModalOpen(true);
 
     setIsEditing(edit);
@@ -21,7 +23,7 @@ function useModal() {
       setExpenseData({
         icon: expense.icon,
         category: expense.category,
-        amount: expense.amount,
+        amount: String(expense.amount),
         date: new Date(Number(expense.date)).toISOString().split("T")[0],
       });
 
@@ -44,18 +46,18 @@ function useModal() {
     });
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setExpenseData((prev) => ({
       ...prev,
-      [name]: name === "amount" ? value.replace(/[^0-9.]/g, 0) : value,
+      [name]: name === "amount" ? value.replace(/[^0-9.]/g, '') : value,
     }));
   };
 
   const toggleEmojiPicker = () => setIsEmojiPickerOpen(!isEmojiPickerOpen);
 
-  const handleEmojiClick = (emojiData) => {
+  const handleEmojiClick = (emojiData: EmojiClickData) => {
     setExpenseData((prev) => ({
       ...prev,
       icon: emojiData.emoji,

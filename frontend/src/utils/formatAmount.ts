@@ -1,4 +1,4 @@
-export const formatAmount = (amount) => {
+export const formatAmount = (amount: number) => {
     if (amount >= 1000000) {
         return `${(amount / 1000000).toFixed(1)}M`;
     } else if (amount >= 100000) {

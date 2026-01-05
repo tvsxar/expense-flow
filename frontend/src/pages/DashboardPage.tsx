@@ -1,16 +1,16 @@
 // hooks
-import useExpenses from "../hooks/useExpenses";
-import useModal from "../hooks/useModal";
-import usePeriodDropdown from "../hooks/usePeriodDropdown";
-import useExpensesChartData from "../hooks/useExpensesChartData";
+import useExpenses from "../hooks/useExpenses.js";
+import useModal from "../hooks/useModal.js";
+import usePeriodDropdown from "../hooks/usePeriodDropdown.js";
+import useExpensesChartData from "../hooks/useExpensesChartData.js";
 
 // components
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import SummaryCards from "../components/SummaryCards";
-import ExpensesCharts from "../components/ExpensesCharts";
-import ExpensesList from "../components/ExpensesList";
-import ExpenseModal from "../components/ExpenseModal";
+import Navbar from "../components/Navbar.js";
+import Footer from "../components/Footer.js";
+import SummaryCards from "../components/SummaryCards.js";
+import ExpensesCharts from "../components/ExpensesCharts.js";
+import ExpensesList from "../components/ExpensesList.js";
+import ExpenseModal from "../components/ExpenseModal.js";
 
 function DashboardPage() {
   const modal = useModal();
@@ -25,7 +25,7 @@ function DashboardPage() {
   } = useExpenses(period);
   const chartData = useExpensesChartData(expensesQuery.data?.expenses, period);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -56,7 +56,7 @@ function DashboardPage() {
     modal.handleCloseModal();
   };
 
-  const handleDelete = async (expenseId) => {
+  const handleDelete = async (expenseId: string) => {
     try {
       await deleteExpense({
         variables: {
@@ -98,7 +98,7 @@ function DashboardPage() {
 
       <div className="flex-1 pt-4 pb-12 px-4 sm:px-12 lg:px-25">
         <SummaryCards period={period} expenses={expensesQuery.data.expenses} />
-        <ExpensesCharts chartData={chartData} />
+        <ExpensesCharts totalChart={chartData.totalChart} categoryChart={chartData.categoryChart} />
         <ExpensesList
           handleOpenModal={modal.handleOpenModal}
           expenses={expensesQuery.data.expenses}

@@ -1,4 +1,4 @@
-export default function formatDate(dateString) {
+export default function formatDate(dateString: string) {
   if (!dateString) return "";
 
   const timestamp = typeof dateString === "string" ? Number(dateString) : dateString;
@@ -8,7 +8,7 @@ export default function formatDate(dateString) {
   const month = date.toLocaleString("en-US", { month: "long" });
   const year = date.getFullYear();
 
-  function getDaySuffix(day) {
+  function getDaySuffix(day: number) {
     if (day >= 11 && day <= 13) return "th";
     switch (day % 10) {
       case 1:

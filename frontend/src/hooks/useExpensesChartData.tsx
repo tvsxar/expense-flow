@@ -1,12 +1,15 @@
-function useExpensesChartData(expenses = [], period) {
-  const totalChart = [];
-  let categoryChart = [];
+import type { Expense, TotalChartItem, CategoryChartItem, Period } from '../types/types.js'
+
+function useExpensesChartData(expenses: Expense[] = [], period: Period) {
+  console.log(expenses)
+  const totalChart: TotalChartItem[] = [];
+  let categoryChart: CategoryChartItem[] = [];
 
   const startDate = new Date(period.from);
   const endDate = new Date(period.to);
 
   const MS_IN_DAY = 24 * 60 * 60 * 1000;
-  const totalDays = Math.round((endDate - startDate) / MS_IN_DAY) + 1;
+  const totalDays = Math.round((endDate.getTime() - startDate.getTime()) / MS_IN_DAY) + 1;
 
   let step = 1;
 
@@ -55,16 +58,16 @@ function useExpensesChartData(expenses = [], period) {
 
       const label = sameMonth
         ? `${startBlock.getDate()}-${endBlock.getDate()} ${endBlock.toLocaleDateString(
-            "en-US",
-            {
-              month: "short",
-            }
-          )}`
+          "en-US",
+          {
+            month: "short",
+          }
+        )}`
         : `${startBlock.getDate()} ${startBlock.toLocaleDateString("en-US", {
-            month: "short",
-          })} - ${endBlock.getDate()} ${endBlock.toLocaleDateString("en-US", {
-            month: "short",
-          })}`;
+          month: "short",
+        })} - ${endBlock.getDate()} ${endBlock.toLocaleDateString("en-US", {
+          month: "short",
+        })}`;
 
       totalChart.push({
         date: startBlock.toISOString().split("T")[0],
@@ -75,7 +78,7 @@ function useExpensesChartData(expenses = [], period) {
   }
 
   // category chart (doughnut & pie)
-  const categories = [];
+  const categories: string[] = [];
 
   expenses.forEach((expense) => {
     if (!categories.includes(expense.category))

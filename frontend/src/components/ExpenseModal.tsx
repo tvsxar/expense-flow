@@ -1,6 +1,12 @@
 import EmojiPicker from "emoji-picker-react";
+import type { Modal } from '../types/types.js'
 
-function ExpenseModal({ modal, handleSubmit }) {
+interface ExpenseModalProps {
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
+  modal: Modal
+}
+
+function ExpenseModal({ modal, handleSubmit }: ExpenseModalProps) {
   return (
     <div
       onClick={modal.handleCloseModal}
@@ -22,9 +28,9 @@ function ExpenseModal({ modal, handleSubmit }) {
           Add New Expense
         </h2>
 
-        <form 
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-3 sm:gap-4">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-3 sm:gap-4">
           <div className="flex flex-col gap-2 items-center justify-center">
             <span className="text-gray-500">Select icon:</span>
             <button
@@ -38,6 +44,7 @@ function ExpenseModal({ modal, handleSubmit }) {
 
             {modal.isEmojiPickerOpen && (
               <div className="h-12">
+                {/* @ts-ignore */}
                 <EmojiPicker onEmojiClick={modal.handleEmojiClick} />
               </div>
             )}

@@ -1,7 +1,12 @@
 import { useState } from "react";
 import arrowIcon from "../assets/chevron-down-outline.svg";
 
-function DropdownButton({ handleSelect, selected }) {
+interface DropdownButtonProps {
+  handleSelect: (value: string, label: string) => void,
+  selected: string
+}
+
+function DropdownButton({ handleSelect, selected }: DropdownButtonProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {

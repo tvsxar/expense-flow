@@ -1,22 +1,27 @@
-import LineChart from "./charts/LineChart";
-import BarChart from "./charts/BarChart";
-import DonutChart from "./charts/DonutChart";
-import PieChart from "./charts/PieChart";
+import LineChart from "./charts/LineChart.js";
+import BarChart from "./charts/BarChart.js";
+import DonutChart from "./charts/DonutChart.js";
+import PieChart from "./charts/PieChart.js";
 import { useState } from "react";
+import type { TotalChartItem, CategoryChartItem } from '../types/types.js'
 
-function ExpensesCharts({ chartData = [] }) {
+interface ExpensesChartData {
+  totalChart: TotalChartItem[];
+  categoryChart: CategoryChartItem[];
+}
+
+function ExpensesCharts({ categoryChart, totalChart }: ExpensesChartData) {
   const [selectedChart, setSelectedChart] = useState("line");
   const [selectedRound, setSelectedRound] = useState("doughnut");
   const totalChartData = {
-    labels: chartData.totalChart.map(day => day.label),
+    labels: totalChart.map(day => day.label),
     datasets: [
       {
         label: "Expenses",
-        data: chartData.totalChart.map(day => day.total),
+        data: totalChart.map(day => day.total),
         borderColor: "rgba(233,214,236,1)",
-        backgroundColor: `rgba(233,214,236,${
-          selectedChart === "line" ? 0.2 : 0.5
-        })`,
+        backgroundColor: `rgba(233,214,236,${selectedChart === "line" ? 0.2 : 0.5
+          })`,
         tension: 0.3,
         fill: true,
         pointRadius: 5,
@@ -26,10 +31,10 @@ function ExpensesCharts({ chartData = [] }) {
   };
 
   const categoryChartData = {
-    labels: chartData.categoryChart.map(category => category.category),
+    labels: categoryChart.map(category => category.category),
     datasets: [
       {
-        data: chartData.categoryChart.map(category => category.total),
+        data: categoryChart.map(category => category.total),
         backgroundColor: [
           "rgba(233,214,236,0.7)",
           "rgba(202,200,240,0.7)",
@@ -51,9 +56,8 @@ function ExpensesCharts({ chartData = [] }) {
             <button
               key={type}
               onClick={() => setSelectedChart(type)}
-              className={`px-4 py-1 rounded-xl text-black cursor-pointer ${
-                selectedChart === type ? "bg-pink-100" : "bg-gray-200"
-              }`}
+              className={`px-4 py-1 rounded-xl text-black cursor-pointer ${selectedChart === type ? "bg-pink-100" : "bg-gray-200"
+                }`}
             >
               {type === "line" ? "Line" : "Bar"}
             </button>
@@ -74,9 +78,8 @@ function ExpensesCharts({ chartData = [] }) {
             <button
               key={type}
               onClick={() => setSelectedRound(type)}
-              className={`px-4 py-1 rounded-xl text-black cursor-pointer ${
-                selectedRound === type ? "bg-pink-100" : "bg-gray-200"
-              }`}
+              className={`px-4 py-1 rounded-xl text-black cursor-pointer ${selectedRound === type ? "bg-pink-100" : "bg-gray-200"
+                }`}
             >
               {type === "doughnut" ? "Doughnut" : "Pie"}
             </button>
