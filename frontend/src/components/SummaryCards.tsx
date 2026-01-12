@@ -7,8 +7,8 @@ interface SummaryCardsProps {
   period: Period
 }
 
-function SummaryCards({ expenses, period }: SummaryCardsProps) {
-  const totalAmount = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+function SummaryCards({ expenses = [], period }: SummaryCardsProps) {
+  const totalAmount = expenses.reduce((sum, exp) => sum + (exp.amount || 0), 0);
 
   const dayStart = new Date(period.from);
   const dayEnd = new Date(period.to);
@@ -28,8 +28,8 @@ function SummaryCards({ expenses, period }: SummaryCardsProps) {
     },
     {
       title: "Last Expense",
-      value: `$${expenses[0].amount}`,
-      icon: `${expenses[0].icon}`,
+      value: expenses[0] ? `$${formatAmount(expenses[0].amount)}` : "$0",
+      icon: expenses[0] ? expenses[0].icon || "❌" : "❌",
     },
   ];
 

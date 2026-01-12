@@ -31,17 +31,23 @@ function ExpensesCharts({ categoryChart, totalChart }: ExpensesChartData) {
   };
 
   const categoryChartData = {
-    labels: categoryChart.map(category => category.category),
+    labels: categoryChart.length
+      ? categoryChart.map(category => category.category)
+      : ["No Data"],
     datasets: [
       {
-        data: categoryChart.map(category => category.total),
-        backgroundColor: [
-          "rgba(233,214,236,0.7)",
-          "rgba(202,200,240,0.7)",
-          "rgba(129,150,143,0.7)",
-          "rgba(150,189,198,0.7)",
-          "rgba(207,185,165,0.7)",
-        ],
+        data: categoryChart.length
+          ? categoryChart.map(category => category.total)
+          : [1],
+        backgroundColor: categoryChart.length
+          ? [
+            "rgba(233,214,236,0.7)",
+            "rgba(202,200,240,0.7)",
+            "rgba(129,150,143,0.7)",
+            "rgba(150,189,198,0.7)",
+            "rgba(207,185,165,0.7)",
+          ]
+          : ["#e5e5e5"],
         borderColor: "#fff",
         borderWidth: 1,
       },
